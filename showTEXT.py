@@ -4,7 +4,7 @@ import tkinter as tk
 import tkinter.ttk as ttk
 import re
 
-from tkinter import messagebox
+from tkinter import messagebox, Toplevel
 
 def show():
     root.attribtes("-topmost", True)
@@ -46,6 +46,19 @@ def Value_check(before, after):
     else:
         return(False)
 
+def tooltip(event):
+    global tipwindow
+    tipwindow = Toplevel(root)
+    tipwindow.wm_overrideredirect(True)
+    tipwindow.wm_geometry(f"+{event.x_root}+{event.y_root}")
+    tk.Label(tipwindow, text="ボタンを押すと文字だけを表示します", font=("MSゴシック", 10)).pack()
+
+def hidetip(event):
+    global tipwindow
+    if tipwindow:
+        tipwindow.destroy()
+        tipwindow=None
+
 
 #def sizeButton_preview(event):
     #getSize = 
@@ -53,27 +66,27 @@ def Value_check(before, after):
 # rootメインウィンドウの設定
 root = tk.Tk()
 root.title("showTEXT")
-root.geometry("300x200")
+root.geometry("400x300")
 
 
 #文字表示
-label = tk.Label(text='表示する文字', font=("MSゴシック", "10"))
+label = tk.Label(text='表示する文字:', font=("MSゴシック", "10"))
 label.place(
     relx=0.1,
     rely=0.1,
 )
 
 getinput = tk.StringVar()
-inputTEXT = tk.Entry( font=("MSゴシック", "10"), textvariable=getinput)
+inputTEXT = tk.Entry( font=("MSゴシック", "10"), textvariable=getinput, relief=tk.SOLID, bd=0.5)
 inputTEXT.place(
-    relx=0.4,
+    relx=0.35,
     rely=0.1,
-    relwidth=0.5,
-    relheight=0.1
+    relwidth=0.4,
+    relheight=0.07
 )
 
 # フォントを指定してボタンを作成
-showPREVIEW = tk.Label(text="入力結果を表示", font=("メイリオ", "10"), relief=tk.SOLID, bd=1)
+showPREVIEW = tk.Label(text="入力結果のプレビュー", font=("メイリオ", "10"), relief=tk.SOLID, bd=1)
 showPREVIEW.place(
     relx=0.3,
     rely=0.7,
@@ -87,19 +100,41 @@ selectCOLOR.place(
     relx=0.4,
     rely=0.3,
     relwidth=0.2,
-    relheight=0.1
+    relheight=0.07
 )
 selectCOLOR.bind('<<ComboboxSelected>>', select_color)
+
+textCOLOR = tk.Label(text='文字の色変更:', font=("MSゴシック", "10"))
+textCOLOR.place(
+    relx=0.1,
+    rely=0.3,
+)
 
 getSize = tk.StringVar()
 inputSIZE = tk.Entry(font=("MSゴシック", "10"), textvariable=getSize)
 vcmd = (inputSIZE.register(Value_check), '%s', '%P')
-inputSIZE.configure(validate='key', vcmd=vcmd)
+inputSIZE.configure(validate='key', vcmd=vcmd, relief=tk.SOLID, bd=1)
 inputSIZE.place(
-    relx=0.3,
-    rely=0.4
+    relx=0.7,
+    rely=0.47,
+    relwidth=0.1
 )
 getSize.trace("w", sizeInput_preview)
+
+sizeTXT = tk.Label(text="文字のサイズを半角数字で入れてください:", font=("メイリオ", "10"))
+sizeTXT.place(
+    relx=0.02,
+    rely=0.45,
+)
+
+buttonFULL = tk.Button(root, text="表示", font=("MSゴシック", 10))
+buttonFULL.place(
+    relx=0.85,
+    rely=0.05
+)
+buttonFULL.bind("<Enter>", tooltip)
+buttonFULL.bind("<Leave>", hidetip)
+
 
 
 
