@@ -7,7 +7,8 @@ import re
 from tkinter import messagebox, Toplevel
 
 def show():
-    root.attribtes("-topmost", True)
+    root.attributes("-topmost", True)
+    print("top")
 
 def update_preview(*args):
     showPREVIEW["text"] = inputTEXT.get()
@@ -127,7 +128,7 @@ sizeTXT.place(
     rely=0.45,
 )
 
-buttonFULL = tk.Button(root, text="表示", font=("MSゴシック", 10))
+buttonFULL = tk.Button(root, text="表示", font=("MSゴシック", 10), command=show)
 buttonFULL.place(
     relx=0.85,
     rely=0.05
