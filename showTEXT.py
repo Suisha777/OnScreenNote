@@ -3,12 +3,17 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 import re
-
+import pyautogui
 from tkinter import messagebox, Toplevel
 
 def show():
-    root.attributes("-topmost", True)
-    print("top")
+    sub = tk.Toplevel()
+    sub.geometry("400x300")
+    sub.attributes("-topmost", True)
+    sub.overrideredirect(True)
+    #sub.wm_attributes("-transparentcolor", "white")
+    tk.Frame(sub, background="white").pack(expand=True, fill=tk.BOTH)
+    print("func:show")
 
 def update_preview(*args):
     showPREVIEW["text"] = inputTEXT.get()
@@ -60,6 +65,12 @@ def hidetip(event):
         tipwindow.destroy()
         tipwindow=None
 
+def move(event):
+    xPosition, YPosition = pyautogui.position()
+    print(f"Pos座標: x={xPosition}, y={YPosition}")
+    root.geometry(f"+{xPosition-40}+{YPosition-60}")
+    
+
 
 #def sizeButton_preview(event):
     #getSize = 
@@ -67,7 +78,7 @@ def hidetip(event):
 # rootメインウィンドウの設定
 root = tk.Tk()
 root.title("showTEXT")
-root.geometry("400x300")
+root.geometry("600x400")
 
 
 #文字表示
@@ -136,6 +147,12 @@ buttonFULL.place(
 buttonFULL.bind("<Enter>", tooltip)
 buttonFULL.bind("<Leave>", hidetip)
 
+buttonMove = tk.Button(root, text="移動", font=("MSゴシック", 10))
+buttonMove.place(
+    relx= 0,
+    rely=0
+)
+buttonMove.bind("<Motion>", move)
 
 
 
