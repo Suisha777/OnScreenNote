@@ -4,16 +4,32 @@ import tkinter as tk
 import tkinter.ttk as ttk
 import re
 import pyautogui
+import threading
 from tkinter import messagebox, Toplevel
 
+#サブウィンドウ用の変数
+sub = None
+
+movement = 0
+buttonMove = None
+
 def show():
+    global sub
     sub = tk.Toplevel()
-    sub.geometry("400x300")
+    sub.geometry("300x400+200+200")
     sub.attributes("-topmost", True)
     sub.overrideredirect(True)
     #sub.wm_attributes("-transparentcolor", "white")
     tk.Frame(sub, background="white").pack(expand=True, fill=tk.BOTH)
     print("func:show")
+    global buttonMove
+    buttonMove = tk.Button(sub, text="移動", font=("MSゴシック", 10))
+    buttonMove.place(
+        relx=0,
+        rely=0
+    )
+    buttonMove.bind("<Button-1>", move_start)
+    buttonMove.bind("<ButtonRelease>", move_stop)
 
 def update_preview(*args):
     showPREVIEW["text"] = inputTEXT.get()
@@ -65,14 +81,37 @@ def hidetip(event):
         tipwindow.destroy()
         tipwindow=None
 
+def move_start(event):
+    t = move_Thread()
+    t.start()
+    t.join()
+    
+    print(1)
+    
 def move(event):
     xPosition, YPosition = pyautogui.position()
     print(f"Pos座標: x={xPosition}, y={YPosition}")
     root.geometry(f"+{xPosition-40}+{YPosition-60}")
     
+    
+    
+def move_stop(event):
+    global movement
+    print(0)
+    movement = 0
+    
+class move_Thread(threading.Thread):
+    def go(self):
+        global movement
+        global sub
+        print("move")
+        print(movement)
+        while movement:
+            xPosition, YPosition = pyautogui.position()
+            print(f"Pos座標: x={xPosition}, y={YPosition}")
+            sub.geometry(f"+{xPosition-20}+{YPosition-20}")
 
-
-#def sizeButton_preview(event):
+# def sizeButton_preview(event):
     #getSize = 
 
 # rootメインウィンドウの設定
@@ -147,12 +186,6 @@ buttonFULL.place(
 buttonFULL.bind("<Enter>", tooltip)
 buttonFULL.bind("<Leave>", hidetip)
 
-buttonMove = tk.Button(root, text="移動", font=("MSゴシック", 10))
-buttonMove.place(
-    relx= 0,
-    rely=0
-)
-buttonMove.bind("<Motion>", move)
 
 
 
