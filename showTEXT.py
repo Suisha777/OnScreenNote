@@ -28,8 +28,7 @@ def show():
         relx=0,
         rely=0
     )
-    buttonMove.bind("<Button-1>", move_start)
-    buttonMove.bind("<ButtonRelease>", move_stop)
+    buttonMove.bind("<Button1-Motion>", move)
 
 def update_preview(*args):
     showPREVIEW["text"] = inputTEXT.get()
@@ -81,38 +80,12 @@ def hidetip(event):
         tipwindow.destroy()
         tipwindow=None
 
-def move_start(event):
-    t = move_Thread()
-    t.start()
-    t.join()
-    
-    print(1)
     
 def move(event):
     xPosition, YPosition = pyautogui.position()
-    print(f"Pos座標: x={xPosition}, y={YPosition}")
-    root.geometry(f"+{xPosition-40}+{YPosition-60}")
-    
-    
-    
-def move_stop(event):
-    global movement
-    print(0)
-    movement = 0
-    
-class move_Thread(threading.Thread):
-    def go(self):
-        global movement
-        global sub
-        print("move")
-        print(movement)
-        while movement:
-            xPosition, YPosition = pyautogui.position()
-            print(f"Pos座標: x={xPosition}, y={YPosition}")
-            sub.geometry(f"+{xPosition-20}+{YPosition-20}")
+    #print(f"Pos座標: x={xPosition}, y={YPosition}")
+    sub.geometry(f"+{xPosition-20}+{YPosition-20}")
 
-# def sizeButton_preview(event):
-    #getSize = 
 
 # rootメインウィンドウの設定
 root = tk.Tk()
