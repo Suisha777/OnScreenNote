@@ -15,20 +15,37 @@ buttonMove = None
 
 def show():
     global sub
-    sub = tk.Toplevel()
-    sub.geometry("300x400+200+200")
-    sub.attributes("-topmost", True)
-    sub.overrideredirect(True)
-    #sub.wm_attributes("-transparentcolor", "white")
-    tk.Frame(sub, background="white").pack(expand=True, fill=tk.BOTH)
-    print("func:show")
-    global buttonMove
-    buttonMove = tk.Button(sub, text="移動", font=("MSゴシック", 10))
-    buttonMove.place(
-        relx=0,
-        rely=0
-    )
-    buttonMove.bind("<Button1-Motion>", move)
+    if sub == None or not sub.winfo_exists():
+        sub = tk.Toplevel()
+        sub.geometry("300x400+200+200")
+        sub.attributes("-topmost", True)
+        sub.overrideredirect(True)
+        #sub.wm_attributes("-transparentcolor", "white")
+        tk.Frame(sub, background="white").pack(expand=True, fill=tk.BOTH)
+        print("func:show")
+        global buttonMove
+        buttonMove = tk.Button(sub, text="移動", font=("MSゴシック", 10))
+        buttonMove.place(
+            relx=0,
+            rely=0
+        )
+        buttonMove.bind("<Button1-Motion>", move)
+    else:
+        sub.destroy()
+        sub = tk.Toplevel()
+        sub.geometry("300x400+200+200")
+        sub.attributes("-topmost", True)
+        sub.overrideredirect(True)
+        #sub.wm_attributes("-transparentcolor", "white")
+        tk.Frame(sub, background="white").pack(expand=True, fill=tk.BOTH)
+        print("func:show")
+        buttonMove = tk.Button(sub, text="移動", font=("MSゴシック", 10))
+        buttonMove.place(
+            relx=0,
+            rely=0
+        )
+        buttonMove.bind("<Button1-Motion>", move)
+        
 
 def update_preview(*args):
     showPREVIEW["text"] = inputTEXT.get()
