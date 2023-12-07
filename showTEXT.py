@@ -17,12 +17,42 @@ def show():
     global sub
     if sub == None or not sub.winfo_exists():
         sub = tk.Toplevel()
-        sub.geometry("300x400+200+200")
+        wid,hei=pyautogui.size()
+        sub.geometry(f"{wid}x{hei}+200+200")
         sub.attributes("-topmost", True)
         sub.overrideredirect(True)
-        #sub.wm_attributes("-transparentcolor", "white")
+        sub.wm_attributes("-transparentcolor", "white")
         tk.Frame(sub, background="white").pack(expand=True, fill=tk.BOTH)
-        print("func:show")
+        #print("func:show")
+        getTEXT = None
+        if(inputTEXT.get() == ""):
+            getTEXT = "なにも入力されてません"
+        else:
+            getTEXT = inputTEXT.get()
+        showSIZE = 10
+        #print(f"inputsizeget:{inputSIZE.get()}")
+        if(inputSIZE.get()):
+            showSIZE = inputSIZE.get()
+        #print(f"text:{getTEXT},size:{showSIZE}")
+        showTEXT = tk.Label(sub, text=getTEXT, font=("メイリオ", showSIZE), background="white")
+        getCOLOR = selectCOLOR.get()
+        if(getCOLOR == "赤"):
+            showTEXT.config(foreground='red')
+        elif(getCOLOR == "黄"):
+            showTEXT.config(foreground='yellow')
+        elif(getCOLOR == "緑"):
+            showTEXT.config(foreground='green')
+        elif(getCOLOR == "青"):
+            showTEXT.config(foreground='blue')
+        elif(getCOLOR == "紫"):
+            showTEXT.config(foreground='purple')
+        elif(getCOLOR == "白"):
+            showTEXT.config(foreground='white')
+        elif(getCOLOR == "灰"):
+            showTEXT.config(foreground='grey')
+        elif(getCOLOR == "黒"):
+            showTEXT.config(foreground='black')
+        showTEXT.place(x=0, y=30)
         global buttonMove
         buttonMove = tk.Button(sub, text="移動", font=("MSゴシック", 10))
         buttonMove.place(
@@ -33,12 +63,42 @@ def show():
     else:
         sub.destroy()
         sub = tk.Toplevel()
-        sub.geometry("300x400+200+200")
+        wid,hei=pyautogui.size()
+        sub.geometry(f"{wid}x{hei}+200+200")
         sub.attributes("-topmost", True)
         sub.overrideredirect(True)
-        #sub.wm_attributes("-transparentcolor", "white")
+        sub.wm_attributes("-transparentcolor", "white")
         tk.Frame(sub, background="white").pack(expand=True, fill=tk.BOTH)
-        print("func:show")
+        getTEXT = None
+        if(inputTEXT.get() == ""):
+            getTEXT = "なにも入力されてません"
+        else:
+            getTEXT = inputTEXT.get()
+        showSIZE = 10
+        #print(f"inputsizeget:{inputSIZE.get()}")
+        if(inputSIZE.get()):
+            showSIZE = inputSIZE.get()
+        #print(f"text:{getTEXT},size:{showSIZE}")
+        showTEXT = tk.Label(sub, text=getTEXT, font=("メイリオ", showSIZE), background="white")
+        getCOLOR = selectCOLOR.get()
+        if(getCOLOR == "赤"):
+            showTEXT.config(foreground='red')
+        elif(getCOLOR == "黄"):
+            showTEXT.config(foreground='yellow')
+        elif(getCOLOR == "緑"):
+            showTEXT.config(foreground='green')
+        elif(getCOLOR == "青"):
+            showTEXT.config(foreground='blue')
+        elif(getCOLOR == "紫"):
+            showTEXT.config(foreground='purple')
+        elif(getCOLOR == "白"):
+            showTEXT.config(foreground='white')
+        elif(getCOLOR == "灰"):
+            showTEXT.config(foreground='grey')
+        elif(getCOLOR == "黒"):
+            showTEXT.config(foreground='black')
+        showTEXT.place(x=0, y=30)
+        #print("func:show")
         buttonMove = tk.Button(sub, text="移動", font=("MSゴシック", 10))
         buttonMove.place(
             relx=0,
