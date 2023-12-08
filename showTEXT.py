@@ -12,99 +12,75 @@ sub = None
 
 movement = 0
 buttonMove = None
+winx = 0
+winy = 0
 
 def show():
     global sub
     if sub == None or not sub.winfo_exists():
-        sub = tk.Toplevel()
-        wid,hei=pyautogui.size()
-        sub.geometry(f"{wid}x{hei}+200+200")
-        sub.attributes("-topmost", True)
-        sub.overrideredirect(True)
-        sub.wm_attributes("-transparentcolor", "white")
-        tk.Frame(sub, background="white").pack(expand=True, fill=tk.BOTH)
-        #print("func:show")
-        getTEXT = None
-        if(inputTEXT.get() == ""):
-            getTEXT = "なにも入力されてません"
-        else:
-            getTEXT = inputTEXT.get()
-        showSIZE = 10
-        #print(f"inputsizeget:{inputSIZE.get()}")
-        if(inputSIZE.get()):
-            showSIZE = inputSIZE.get()
-        #print(f"text:{getTEXT},size:{showSIZE}")
-        showTEXT = tk.Label(sub, text=getTEXT, font=("メイリオ", showSIZE), background="white")
-        getCOLOR = selectCOLOR.get()
-        if(getCOLOR == "赤"):
-            showTEXT.config(foreground='red')
-        elif(getCOLOR == "黄"):
-            showTEXT.config(foreground='yellow')
-        elif(getCOLOR == "緑"):
-            showTEXT.config(foreground='green')
-        elif(getCOLOR == "青"):
-            showTEXT.config(foreground='blue')
-        elif(getCOLOR == "紫"):
-            showTEXT.config(foreground='purple')
-        elif(getCOLOR == "白"):
-            showTEXT.config(foreground='white')
-        elif(getCOLOR == "灰"):
-            showTEXT.config(foreground='grey')
-        elif(getCOLOR == "黒"):
-            showTEXT.config(foreground='black')
-        showTEXT.place(x=0, y=30)
-        global buttonMove
-        buttonMove = tk.Button(sub, text="移動", font=("MSゴシック", 10))
-        buttonMove.place(
-            relx=0,
-            rely=0
-        )
-        buttonMove.bind("<Button1-Motion>", move)
+        submethod()
     else:
         sub.destroy()
-        sub = tk.Toplevel()
-        wid,hei=pyautogui.size()
-        sub.geometry(f"{wid}x{hei}+200+200")
-        sub.attributes("-topmost", True)
-        sub.overrideredirect(True)
-        sub.wm_attributes("-transparentcolor", "white")
-        tk.Frame(sub, background="white").pack(expand=True, fill=tk.BOTH)
-        getTEXT = None
-        if(inputTEXT.get() == ""):
-            getTEXT = "なにも入力されてません"
-        else:
-            getTEXT = inputTEXT.get()
-        showSIZE = 10
-        #print(f"inputsizeget:{inputSIZE.get()}")
-        if(inputSIZE.get()):
-            showSIZE = inputSIZE.get()
-        #print(f"text:{getTEXT},size:{showSIZE}")
-        showTEXT = tk.Label(sub, text=getTEXT, font=("メイリオ", showSIZE), background="white")
-        getCOLOR = selectCOLOR.get()
-        if(getCOLOR == "赤"):
-            showTEXT.config(foreground='red')
-        elif(getCOLOR == "黄"):
-            showTEXT.config(foreground='yellow')
-        elif(getCOLOR == "緑"):
-            showTEXT.config(foreground='green')
-        elif(getCOLOR == "青"):
-            showTEXT.config(foreground='blue')
-        elif(getCOLOR == "紫"):
-            showTEXT.config(foreground='purple')
-        elif(getCOLOR == "白"):
-            showTEXT.config(foreground='white')
-        elif(getCOLOR == "灰"):
-            showTEXT.config(foreground='grey')
-        elif(getCOLOR == "黒"):
-            showTEXT.config(foreground='black')
-        showTEXT.place(x=0, y=30)
-        #print("func:show")
-        buttonMove = tk.Button(sub, text="移動", font=("MSゴシック", 10))
-        buttonMove.place(
-            relx=0,
-            rely=0
-        )
-        buttonMove.bind("<Button1-Motion>", move)
+        submethod()
+        
+def submethod():
+    global sub
+    sub = tk.Toplevel()
+    wid,hei=pyautogui.size()
+    sub.geometry(f"{wid}x{hei}+200+200")
+    sub.attributes("-topmost", True)
+    sub.overrideredirect(True)
+    sub.wm_attributes("-transparentcolor", "white")
+    tk.Frame(sub, background="white").pack(expand=True, fill=tk.BOTH)
+    #print("func:show")
+    getTEXT = None
+    if(inputTEXT.get() == ""):
+        getTEXT = "なにも入力されてません"
+    else:
+        getTEXT = inputTEXT.get()
+    showSIZE = 10
+    #print(f"inputsizeget:{inputSIZE.get()}")
+    if(inputSIZE.get()):
+        showSIZE = inputSIZE.get()
+    #print(f"text:{getTEXT},size:{showSIZE}")
+    showTEXT = tk.Label(sub, text=getTEXT, font=("メイリオ", showSIZE), bg="white")
+    getCOLOR = selectCOLOR.get()
+    if(getCOLOR == "赤"):
+        showTEXT.config(foreground='red')
+    elif(getCOLOR == "黄"):
+        showTEXT.config(foreground='yellow')
+    elif(getCOLOR == "緑"):
+        showTEXT.config(foreground='green')
+    elif(getCOLOR == "青"):
+        showTEXT.config(foreground='blue')
+    elif(getCOLOR == "紫"):
+        showTEXT.config(foreground='purple')
+    elif(getCOLOR == "白"):
+        showTEXT.config(foreground='white')
+    elif(getCOLOR == "灰"):
+        showTEXT.config(foreground='grey')
+    elif(getCOLOR == "黒"):
+        showTEXT.config(foreground='black')
+    showTEXT.place(x=0, y=30)
+    
+    backWin = tk.Toplevel()
+    backWin.overrideredirect(True)
+    backWin.transient(sub)
+    backWin.wm_attributes("-alpha", 0.01)
+    def traceback(_):
+        backWin.geometry(f"600x400+{sub.winfo_rootx()}+{sub.winfo_rooty()}")
+        backWin.lower(sub)
+    sub.bind("<Configure>", traceback)
+    global buttonMove
+    buttonMove = tk.Button(backWin, width=200, height=400)
+    buttonMove.place(
+        relx=0,
+        rely=0
+    )
+    buttonMove.bind("<Button-1>", getlocation)
+    buttonMove.bind("<Button1-Motion>", move)
+    
+    
         
 
 def update_preview(*args):
@@ -159,9 +135,18 @@ def hidetip(event):
 
     
 def move(event):
+    global winx, winy
     xPosition, YPosition = pyautogui.position()
     #print(f"Pos座標: x={xPosition}, y={YPosition}")
-    sub.geometry(f"+{xPosition-20}+{YPosition-20}")
+    sub.geometry(f"+{xPosition-winx}+{YPosition-winy}")
+    #print(f"posx:{xPosition},posy:{YPosition}")
+    #print(f"x:{event.x},y:{event.y}")
+
+def getlocation(event):
+    global winx, winy
+    winx = event.x
+    winy = event.y
+    #print("getlocation,functioned")
 
 
 # rootメインウィンドウの設定
@@ -222,7 +207,7 @@ inputSIZE.place(
 )
 getSize.trace("w", sizeInput_preview)
 
-sizeTXT = tk.Label(text="文字のサイズを半角数字で入れてください:", font=("メイリオ", "10"))
+sizeTXT = tk.Label(text="文字のサイズを入れてください(半角数字):", font=("メイリオ", "10"))
 sizeTXT.place(
     relx=0.02,
     rely=0.45,
@@ -231,7 +216,7 @@ sizeTXT.place(
 buttonFULL = tk.Button(root, text="表示", font=("MSゴシック", 10), command=show)
 buttonFULL.place(
     relx=0.85,
-    rely=0.05
+    rely=0.08
 )
 buttonFULL.bind("<Enter>", tooltip)
 buttonFULL.bind("<Leave>", hidetip)
