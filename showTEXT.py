@@ -5,6 +5,7 @@ import tkinter.ttk as ttk
 import re
 import pyautogui
 import threading
+import time
 from tkinter import messagebox, Toplevel
 
 #サブウィンドウ用の変数
@@ -30,8 +31,8 @@ def submethod():
     sub.geometry(f"{wid}x{hei}+200+200")
     sub.attributes("-topmost", True)
     sub.overrideredirect(True)
-    sub.wm_attributes("-transparentcolor", "white")
-    tk.Frame(sub, background="white").pack(expand=True, fill=tk.BOTH)
+    sub.wm_attributes("-transparentcolor", "snow")
+    tk.Frame(sub, background="snow").pack(expand=True, fill=tk.BOTH)
     #print("func:show")
     getTEXT = None
     if(inputTEXT.get() == ""):
@@ -43,7 +44,7 @@ def submethod():
     if(inputSIZE.get()):
         showSIZE = inputSIZE.get()
     #print(f"text:{getTEXT},size:{showSIZE}")
-    showTEXT = tk.Label(sub, text=getTEXT, font=("メイリオ", showSIZE), bg="white")
+    showTEXT = tk.Label(sub, text=getTEXT, font=("メイリオ", showSIZE), bg="snow")
     getCOLOR = selectCOLOR.get()
     if(getCOLOR == "赤"):
         showTEXT.config(foreground='red')
@@ -68,7 +69,9 @@ def submethod():
     backWin.transient(sub)
     backWin.wm_attributes("-alpha", 0.01)
     def traceback(_):
-        backWin.geometry(f"600x400+{sub.winfo_rootx()}+{sub.winfo_rooty()}")
+        backX = showSIZE*2*10
+        backY = showSIZE*10
+        backWin.geometry(f"{backX}x{backY}+{sub.winfo_rootx()}+{sub.winfo_rooty()}")
         backWin.lower(sub)
     sub.bind("<Configure>", traceback)
     global buttonMove
@@ -79,6 +82,9 @@ def submethod():
     )
     buttonMove.bind("<Button-1>", getlocation)
     buttonMove.bind("<Button1-Motion>", move)
+    #ツールチップ実装
+    buttonMove.bind("<Enter>", tooltipsub)
+    buttonMove.bind("<Leave>", hidetipsub)
     
     
         
@@ -132,7 +138,19 @@ def hidetip(event):
     if tipwindow:
         tipwindow.destroy()
         tipwindow=None
+    
+def tooltipsub(event):
+    global tipwindowSub
+    tipwindowSub = Toplevel(root)
+    tipwindowSub.wm_overrideredirect(True)
+    tipwindowSub.wm_geometry(f"+{event.x_root}+{event.y_root}")
+    tk.Label(tipwindowSub, text="左クリックとドラッグで移動、右クリックで文字の消去", font=("MSゴシック", 10), background="yellow").pack()
 
+def hidetipsub(event):
+    global tipwindowSub
+    if tipwindowSub:
+        tipwindowSub.destroy()
+        tipwindowSub=None
     
 def move(event):
     global winx, winy
