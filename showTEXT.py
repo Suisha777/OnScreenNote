@@ -19,16 +19,21 @@ winy = 0
 def show():
     global sub
     if sub == None or not sub.winfo_exists():
-        submethod()
+        geo = "no"
+        submethod(geo)
     else:
+        geo = sub.geometry()
         sub.destroy()
-        submethod()
+        submethod(geo)
         
-def submethod():
+def submethod(geo):
     global sub
     sub = tk.Toplevel()
     wid,hei=pyautogui.size()
-    sub.geometry(f"{wid}x{hei}+200+200")
+    if(geo != "no"):
+        sub.geometry(geo)
+    else:
+        sub.geometry(f"{wid}x{hei}+200+200")
     sub.attributes("-topmost", True)
     sub.overrideredirect(True)
     sub.wm_attributes("-transparentcolor", "snow")
@@ -85,6 +90,8 @@ def submethod():
     #ツールチップ実装
     buttonMove.bind("<Enter>", tooltipsub)
     buttonMove.bind("<Leave>", hidetipsub)
+    #右クリックで消去
+    buttonMove.bind("<3>", erasesub)
     
     
         
@@ -166,10 +173,14 @@ def getlocation(event):
     winy = event.y
     #print("getlocation,functioned")
 
+def erasesub(event):
+    global sub
+    sub.destroy()
+
 
 # rootメインウィンドウの設定
 root = tk.Tk()
-root.title("showTEXT")
+root.title("OnScreenNote")
 root.geometry("600x400")
 
 
