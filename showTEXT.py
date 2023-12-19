@@ -2,14 +2,12 @@
 # tkinterのインポート
 import tkinter as tk
 import tkinter.ttk as ttk
-import re
 import pyautogui
-import threading
-import time
-from tkinter import messagebox, Toplevel
+from tkinter import Toplevel
 
 #サブウィンドウ用の変数
 sub = None
+backWin = None
 
 movement = 0
 buttonMove = None
@@ -18,12 +16,14 @@ winy = 0
 
 def show():
     global sub
+    global backWin
     if sub == None or not sub.winfo_exists():
         geo = "no"
         submethod(geo)
     else:
         geo = sub.geometry()
         sub.destroy()
+        backWin.destroy()
         submethod(geo)
         
 def submethod(geo):
@@ -69,10 +69,11 @@ def submethod(geo):
         showTEXT.config(foreground='black')
     showTEXT.place(x=0, y=30)
     
+    global backWin
     backWin = tk.Toplevel()
     backWin.overrideredirect(True)
     backWin.transient(sub)
-    backWin.wm_attributes("-alpha", 0.01)
+    backWin.wm_attributes("-alpha", 0.002)
     def traceback(_):
         backX = showSIZE*2*10
         backY = showSIZE*10
@@ -176,6 +177,9 @@ def getlocation(event):
 def erasesub(event):
     global sub
     sub.destroy()
+    global backWin
+    backWin.destroy()
+    hidetipsub(event)
 
 
 # rootメインウィンドウの設定
@@ -203,8 +207,8 @@ inputTEXT.place(
 # フォントを指定してボタンを作成
 showPREVIEW = tk.Label(text="入力結果のプレビュー", font=("メイリオ", "10"), relief=tk.SOLID, bd=1)
 showPREVIEW.place(
-    relx=0.3,
-    rely=0.7,
+    relx=0.03,
+    rely=0.6,
 )
 getinput.trace("w", update_preview)
 
@@ -230,15 +234,15 @@ inputSIZE = tk.Entry(font=("MSゴシック", "10"), textvariable=getSize)
 vcmd = (inputSIZE.register(Value_check), '%s', '%P')
 inputSIZE.configure(validate='key', vcmd=vcmd, relief=tk.SOLID, bd=1)
 inputSIZE.place(
-    relx=0.7,
+    relx=0.6,
     rely=0.47,
     relwidth=0.1
 )
 getSize.trace("w", sizeInput_preview)
 
-sizeTXT = tk.Label(text="文字のサイズを入れてください(半角数字):", font=("メイリオ", "10"))
+sizeTXT = tk.Label(text="文字のサイズ入力欄(半角数字):", font=("メイリオ", "10"))
 sizeTXT.place(
-    relx=0.02,
+    relx=0.1,
     rely=0.45,
 )
 
