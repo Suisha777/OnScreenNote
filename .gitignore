@@ -1,1 +1,5 @@
 /ignore/
+Pipfile
+Pipfile.lock
+showTEXT.spec
+/build/
