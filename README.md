@@ -3,7 +3,12 @@ OnScreenNoteはディスプレイにメモを表示し続けておくための�
 
 以下のような形で使用することができます
 
+
 ## 使い方
+python3.11.5とpyautoguiを使用しているため、pythonやpyautoguiが入っていないとアプリが動きません  
+pythonのダウンロードとpip install pyautoguiをしてもらうと動くようになると思います  
+distフォルダの中にOnScreenNoteのexeファイルが入っているのでそれを使えば実行できますが、exeファイルのため心配な人はコード内容を確認してOnScreenNote.pyを実行してもらうと安心だと思います
+
 アプリを起動すると以下のような画面が出てきます。
 
 <p align="center">
