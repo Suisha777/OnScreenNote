@@ -1,9 +1,6 @@
 # OnScreenNote
 OnScreenNoteはディスプレイにメモを表示し続けておくためのアプリです
 
-以下のような形で使用することができます
-
-
 ## 使い方
 python3.11.5とpyautoguiを使用しているため、pythonやpyautoguiが入っていないとアプリが動きません  
 pythonのダウンロードとpip install pyautoguiをしてもらうと動くようになると思います  
@@ -32,3 +29,29 @@ distフォルダの中にOnScreenNoteのexeファイルが入っているので�
 作業中に結局最終的に何が目的で作業していたのかが抜けてしまうことがあるため、忘れないようディスプレイにメモを表示し続けるものが欲しいと考え、開発に至りました
 
 これによって作業効率化の手助けになれば幸いです
+
+## pythonの著作権表示
+Copyright © 2001-2023 Python Software Foundation; All Rights Reserved
+
+## pyautoguiの著作権表示
+Copyright (c) 2014, Al Sweigart
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+* Neither the name of the PyAutoGUI nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
